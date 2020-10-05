@@ -21,12 +21,13 @@ sync
 umount /mnt/floppy/
 ```
 
-## kenel 静态编译问题
+## kernel 静态编译问题
 
 因为gccgo相关库不是 -mcmodel=large 编译，所以链接会报错
 
 ```shell
 ld -b elf64-x86-64 -z muldefs -static -nostdlib -o system head.o main.o -T Kernel.lds -L/usr/lib/x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6.3.0 --start-group -lpthread -lc -lgcc_eh -lgcc --end-group
+
 ld: system: section .tdata lma 0xffff8000001b97f0 adjusted to 0xffff8000001b98e8
 /usr/lib/gcc/x86_64-linux-gnu/6.3.0/libgcc.a(generic-morestack.o)：在函数‘__morestack_block_signals’中：
 (.text+0x89a):  截断重寻址至相符: R_X86_64_PLT32 针对未定义的符号 pthread_sigmask
@@ -57,11 +58,7 @@ make: *** [system] Error 1
 不加 -static 时，可以链接成功
 
 ```shell
-gcc -E head.S > head.s
-as --64 -o head.o head.s
-gccgo -mcmodel=large -m64 -nostdlib -nostartfiles -nodefaultlibs -c main.go -o main.o
 ld -b elf64-x86-64 -z muldefs -nostdlib -o system head.o main.o -T Kernel.lds -L/usr/lib/x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6.3.0 --start-group -lpthread -lc -lgcc_eh -lgcc --end-group
-objcopy -I elf64-x86-64 -S -R ".eh_frame" -R ".comment" -O binary system kernel.bin
 ```
 
 但是会需要运行时动态库
@@ -74,24 +71,7 @@ Dynamic section at offset 0x10afb0 contains 20 entries:
  0x0000000000000001 (NEEDED)             共享库：[libpthread.so.0]
  0x0000000000000001 (NEEDED)             共享库：[libc.so.6]
  0x0000000000000001 (NEEDED)             共享库：[ld-linux-x86-64.so.2]
- 0x0000000000000004 (HASH)               0xffff80000010bc88
- 0x0000000000000005 (STRTAB)             0xffff80000010bb30
- 0x0000000000000006 (SYMTAB)             0xffff80000010b8f0
- 0x000000000000000a (STRSZ)              339 (bytes)
- 0x000000000000000b (SYMENT)             24 (bytes)
- 0x0000000000000015 (DEBUG)              0x0
- 0x0000000000000003 (PLTGOT)             0xffff80000010b158
- 0x0000000000000002 (PLTRELSZ)           552 (bytes)
- 0x0000000000000014 (PLTREL)             RELA
- 0x0000000000000017 (JMPREL)             0xffff80000010cd30
- 0x0000000000000007 (RELA)               0xffff80000010cd30
- 0x0000000000000008 (RELASZ)             48 (bytes)
- 0x0000000000000009 (RELAENT)            24 (bytes)
- 0x000000006ffffffe (VERNEED)            0xffff80000010b890
- 0x000000006fffffff (VERNEEDNUM)         3
- 0x000000006ffffff0 (VERSYM)             0xffff80000010b85c
- 0x0000000000000000 (NULL)               0x0
-```
+ ```
 
 目前无影响，因为内核状态不需要相关动态库（C标准库 和 线程库）。
 
