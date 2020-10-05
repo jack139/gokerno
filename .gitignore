@@ -20,6 +20,7 @@ vendor/
 *.o
 *.so
 *.a
+*.s
 *.bin
 *.bz2
 *.tar
