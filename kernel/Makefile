@@ -2,7 +2,7 @@ CFLAGS = -mcmodel=large -m64 -nostdlib -nostartfiles -nodefaultlibs
 #LDFLAGS = -z muldefs -static -nostdlib
 LDFLAGS = -z muldefs -nostdlib
 LIBPATH = -L/usr/lib/x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6.3.0
-LIBS = --start-group -lpthread -lc -lgcc_eh -lgcc --end-group
+LIBS = -lgcc -lgcc_eh -lc #-lpthread
 
 GOARCH := amd64
 GOOS := linux
