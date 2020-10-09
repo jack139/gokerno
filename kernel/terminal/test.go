@@ -6,12 +6,13 @@ func Print_test() {
 
 	for x := 0; x < 1440; x++ {
 		for y := 0; y< 20; y++ {
-			(*vidMem)[y][x][0] = 0x00
-			(*vidMem)[y][x][1] = 0x00
-			(*vidMem)[y][x][2] = 0xff
-			(*vidMem)[y][x][3] = 0x00
+			(*vidMem)[y][x] = _RED
+			//(*vidMem)[y][x][0] = 0x00
+			//(*vidMem)[y][x][1] = 0x00
+			//(*vidMem)[y][x][2] = 0xff
+			//(*vidMem)[y][x][3] = 0x00
 		}
-
+		/*
 		for y := 20; y< 40; y++ {
 			(*vidMem)[y][x][0] = 0x00
 			(*vidMem)[y][x][1] = 0xff
@@ -32,5 +33,8 @@ func Print_test() {
 			(*vidMem)[y][x][2] = 0xff
 			(*vidMem)[y][x][3] = 0x00
 		}
+		*/
 	}
+
+	putchar(vidMem, 200, 200, _WHITE, _BLACK, 65) // 'A'
 }
