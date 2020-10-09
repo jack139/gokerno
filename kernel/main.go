@@ -2,6 +2,7 @@ package main
  
 import (
 	"terminal"
+	//"kfmt"
 )
 
 
@@ -15,7 +16,11 @@ func main() {}
 	kernel的go语言入口
 */
 func StartKerno() {
+	
+	terminal.InitTerminal()
+
 	terminal.Print_test()
+	terminal.Printk_test()
 
 	for { }
 }

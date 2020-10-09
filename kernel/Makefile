@@ -10,10 +10,13 @@ GOOS := linux
 all: system
 	objcopy -I elf64-x86-64 -S -R ".eh_frame" -R ".comment" -O binary system kernel.bin
 
-system:	head.o terminal.o main.o
+system:	head.o terminal.o kfmt.o main.o
 	ld -b elf64-x86-64 $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
 
 terminal.o:	terminal/*.go
+	gccgo $(CFLAGS) -c $^ -o $@
+
+kfmt.o:	kfmt/*.go
 	gccgo $(CFLAGS) -c $^ -o $@
 
 main.o:	main.go

@@ -21,6 +21,8 @@ sync
 umount /mnt/floppy/
 ```
 
+
+
 ## kernel 静态编译问题
 
 因为gccgo相关库不是 -mcmodel=large 编译，所以链接会报错
@@ -71,7 +73,7 @@ Dynamic section at offset 0x10afb0 contains 20 entries:
  0x0000000000000001 (NEEDED)             共享库：[libpthread.so.0]
  0x0000000000000001 (NEEDED)             共享库：[libc.so.6]
  0x0000000000000001 (NEEDED)             共享库：[ld-linux-x86-64.so.2]
- ```
+```
 
 目前无影响，因为内核状态不需要相关动态库（C标准库 和 线程库）。
 

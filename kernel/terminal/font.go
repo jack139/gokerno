@@ -4,15 +4,15 @@ package terminal
 	颜色
 */
 const (
-	_WHITE 	uint32 = 0x00ffffff		//白
-	_BLACK 	uint32 = 0x00000000		//黑
-	_RED	uint32 = 0x00ff0000		//红
-	_ORANGE	uint32 = 0x00ff8000		//橙
-	_YELLOW	uint32 = 0x00ffff00		//黄
-	_GREEN	uint32 = 0x0000ff00		//绿
-	_BLUE	uint32 = 0x000000ff		//蓝
-	_INDIGO	uint32 = 0x0000ffff		//靛
-	_PURPLE	uint32 = 0x008000ff		//紫
+	WHITE 	uint32 = 0x00ffffff		//白
+	BLACK 	uint32 = 0x00000000		//黑
+	RED	uint32 = 0x00ff0000		//红
+	ORANGE	uint32 = 0x00ff8000		//橙
+	YELLOW	uint32 = 0x00ffff00		//黄
+	GREEN	uint32 = 0x0000ff00		//绿
+	BLUE	uint32 = 0x000000ff		//蓝
+	INDIGO	uint32 = 0x0000ffff		//靛
+	PURPLE	uint32 = 0x008000ff		//紫
 )
 
 /*
