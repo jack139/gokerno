@@ -1,12 +1,13 @@
 package main
  
-import "terminal"
+import (
+	"terminal"
+)
 
 func main() {}
 
 func StartKerno() {
-	terminal.Init()
-	terminal.Print()
+	terminal.Print_test()
 
 	for { }
 }

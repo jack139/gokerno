@@ -24,4 +24,5 @@ vendor/
 *.bin
 *.bz2
 *.tar
+*.img
 system

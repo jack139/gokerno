@@ -1,25 +1,9 @@
 package terminal
  
-import "unsafe"
- 
-/*
- * Map the text mode video memory into a multi-dimensional array that can be safely
- * used from Go.
- */
+/* 打印三个彩色条 */
+func Print_test() {
+	vidMem := Init()
 
-
-func get_vidMem(addr uint64) *[900][1440][4]byte {
-	buff := (*[900][1440][4]byte)(unsafe.Pointer(uintptr(addr)))
-	return buff
-}
-
-var vidMem *[900][1440][4]byte
-
-func Init() {
-	vidMem = get_vidMem(0xFFFF800000A00000)
-}
-
-func Print() {
 	for x := 0; x < 1440; x++ {
 		for y := 0; y< 20; y++ {
 			(*vidMem)[y][x][0] = 0x00

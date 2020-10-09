@@ -13,7 +13,7 @@ all: system
 system:	head.o terminal.o main.o
 	ld -b elf64-x86-64 $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
 
-terminal.o:	terminal.go
+terminal.o:	terminal/terminal.go terminal/test.go
 	gccgo $(CFLAGS) -c $^ -o $@
 
 main.o:	main.go
