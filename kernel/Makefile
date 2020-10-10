@@ -1,5 +1,5 @@
-CFLAGS = -mcmodel=large -m64 -nostdlib -nostartfiles -nodefaultlibs
-#LDFLAGS = -z muldefs -static -nostdlib
+CFLAGS = -mcmodel=large -m64
+#LDFLAGS = -z muldefs -static -nostdlib -nostartfiles -nodefaultlibs
 LDFLAGS = -z muldefs -nostdlib
 LIBPATH = -L/usr/lib/x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6.3.0
 LIBS = -lgcc -lgcc_eh -lgo -lc #-lpthread

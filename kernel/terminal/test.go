@@ -11,7 +11,7 @@ func Print_test() {
 		}
 	}
 
-	putchar(200, 200, WHITE, BLACK, byte('A')) // 'A'
+	Putchar(200, 200, WHITE, BLACK, byte('A')) // 'A'
 }
 
 func Printk_test() {
@@ -26,5 +26,5 @@ func Printk_test() {
 	buf[8] = '\b'
 	buf[9] = 'C'
 
-	color_printk(YELLOW, BLACK, 10)
+	ColorPrintk(YELLOW, BLACK, 10)
 }

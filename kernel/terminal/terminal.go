@@ -35,9 +35,11 @@ type Position struct {
 	FB_length uint64
 }
 
+type Buffer [4096]byte
+
 var (
 	pos Position  // 屏幕位置信息
-	buf [4096]byte  // pintk的缓存
+	buf Buffer  // pintk的缓存
 )
 
 /* 
@@ -46,6 +48,13 @@ var (
 func get_vidMem(addr uint64) *vidmem {
 	buff := (*vidmem)(unsafe.Pointer(uintptr(addr)))
 	return buff
+}
+
+/*
+	获取 printk 缓存地址
+*/
+func GetPrintkBuf() *Buffer {
+	return &buf
 }
 
 /*
@@ -67,7 +76,7 @@ func InitTerminal() *Position{
 /*
 	屏幕上指定位置输出一个字符
 */
-func putchar(x int, y int, colorFR uint32, colorBK uint32, font byte) {
+func Putchar(x int, y int, colorFR uint32, colorBK uint32, font byte) {
 	var i, j int
 	var testval byte
 	var fontp *[16]byte
@@ -94,7 +103,7 @@ func putchar(x int, y int, colorFR uint32, colorBK uint32, font byte) {
 /*
 	打印缓存中的length个字符
 */
-func color_printk(colorFR uint32, colorBK uint32, length int) int{
+func ColorPrintk(colorFR uint32, colorBK uint32, length int) int{
 	var count, line, i int
 
 	line = 0
@@ -106,7 +115,7 @@ func color_printk(colorFR uint32, colorBK uint32, length int) int{
 			count--
 
 			line--
-			putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
+			Putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
 			pos.XPosition++
 
 			goto Label_tab
@@ -124,15 +133,15 @@ func color_printk(colorFR uint32, colorBK uint32, length int) int{
 					pos.YPosition = (pos.YResolution / pos.YCharSize - 1) * pos.YCharSize
 				}
 			}	
-			putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
+			Putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
 		} else if buf[count] == byte('\t'){
 			line = ((pos.XPosition + 8) & ^(8 - 1)) - pos.XPosition
 
 			line--
-			putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
+			Putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, ' ')
 			pos.XPosition++
 		} else {
-			putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, buf[count])			
+			Putchar(pos.XPosition * pos.XCharSize, pos.YPosition * pos.YCharSize, colorFR, colorBK, buf[count])			
 			pos.XPosition++
 		}
 
