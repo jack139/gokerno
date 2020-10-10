@@ -77,19 +77,18 @@ func InitTerminal() *Position{
 	屏幕上指定位置输出一个字符
 */
 func Putchar(x int, y int, colorFR uint32, colorBK uint32, font byte) {
-	var i, j int
+	var i, j, p int
 	var testval byte
-	var fontp *[16]byte
 
 	fb := pos.FB_addr
 
 	testval = 0
-	fontp = &font_ascii[font]
+	p = 16*int(font)
 
 	for i=0; i<16; i++ {
 		testval = 0x80
 		for j=0; j<8; j++ {
-			if ((*fontp)[i] & testval) != 0 {
+			if (font_ascii[p+i] & testval) != 0 {
 				(*fb)[y+i][x+j] = colorFR
 			} else {
 				(*fb)[y+i][x+j] = colorBK

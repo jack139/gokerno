@@ -8,9 +8,9 @@
 
 ```
 deepin 15.5 sp2
+nasm 2.12.01
 as 2.28
 gcc 6.3.0
-go 1.6.1 
 gccgo 6.3.0
 ld 2.28
 make 4.1
