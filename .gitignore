@@ -26,3 +26,6 @@ vendor/
 *.tar
 *.img
 system
+
+bin/
+pkg/
