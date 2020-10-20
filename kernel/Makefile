@@ -1,6 +1,5 @@
-CFLAGS = -mcmodel=large -m64
-#LDFLAGS = -z muldefs -static -nostdlib -nostartfiles -nodefaultlibs
-LDFLAGS = -z muldefs -nostdlib
+CFLAGS = -m64 -mcmodel=large -nostdinc
+LDFLAGS = -m64 -z muldefs -nostdlib -ffreestanding #-static
 LIBPATH = -L/usr/lib/x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6.3.0
 LIBS = -lgcc -lgcc_eh -lgo -lc #-lpthread
 
@@ -11,7 +10,8 @@ all: system
 	objcopy -I elf64-x86-64 -S -R ".eh_frame" -R ".comment" -O binary system kernel.bin
 
 system:	head.o terminal.o kfmt.o main.o
-	ld -b elf64-x86-64 $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
+	#ld -b elf64-x86-64 $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
+	gcc $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
 
 terminal.o:	terminal/*.go
 	gccgo $(CFLAGS) -c $^ -o $@
