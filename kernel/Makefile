@@ -14,20 +14,17 @@ GO_OBJ = terminal.o kfmt.o main.o
 all: system
 	objcopy -I elf64-x86-64 -S -R ".eh_frame" -R ".comment" -O binary system kernel.bin
 
+system: head.o $(GO_OBJ)
+	$(GCC) $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
+
 head.o: head.S
 	gcc -E $^ > head.s
 	as --64 -o $@ head.s
 
-system: head.o $(GO_OBJ)
-	$(GCC) $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
-
-terminal.o:	terminal/*.go
-	$(GCCGO) -c -g -m64  -o $@ -static $^
-
-kfmt.o:	kfmt/*.go
-	$(GCCGO) -c -g -m64  -o $@ -static $^
-
 main.o:	main.go
+	$(GCCGO) -c -g -m64  -o $@ -static $^
+
+%.o: %/*.go
 	$(GCCGO) -c -g -m64  -o $@ -static $^
 
 clean:
