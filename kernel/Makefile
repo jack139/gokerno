@@ -19,8 +19,8 @@ all: system
 
 system: head.o $(GO_OBJ)
 	$(GCC) $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
-	#$(GCCGO) -mcmodel=large -o $@ $^ -static -Wl,-z,muldefs -Wl,-T,Kernel.lds
-	#$(LD) $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
+	@#$(GCCGO) -mcmodel=large -o $@ $^ -static -Wl,-z,muldefs -Wl,-T,Kernel.lds
+	@#$(LD) $(LDFLAGS) -o $@ $^ -T Kernel.lds $(LIBPATH) $(LIBS)
 
 head.o: head.S
 	$(GCC) -E $^ > head.s
