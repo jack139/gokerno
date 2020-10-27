@@ -17,6 +17,7 @@ func main() {
 	kernel的go语言入口
 */
 //go:noinline
+//go:nosplit
 func StartKerno() {
 
 	terminal.InitTerminal()

@@ -4,6 +4,7 @@ GCCGO = x86_64-linux-gnu-gccgo
 LD = x86_64-linux-gnu-ld
 OBJCOPY = x86_64-linux-gnu-objcopy
 GOFLAGS = -g -m64 -static -mcmodel=large -Werror -nostdinc -nostdlib
+GC_FLAGS = 
 INCLUDE_DIRS = -I.
 #LDFLAGS = -m64 -mcmodel=large -nostdlib -nostartfiles -nodefaultlibs -ffreestanding #-static
 LDFLAGS = -n -static --no-ld-generated-unwind-info
