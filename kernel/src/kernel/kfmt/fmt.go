@@ -10,7 +10,7 @@ package kfmt
 */
 
 import (
-	"terminal"
+	"kernel/terminal"
 )
 
 // maxBufSize defines the buffer size for formatting numbers.
